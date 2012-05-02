@@ -1,9 +1,3 @@
-coderwall-java
-==============
-
-Coderwall Java Client
-
-
 # Coderwall-java
 
 Coderwall Java Client API
@@ -11,7 +5,13 @@ Coderwall Java Client API
 ## Usage
 
 ```
-Coder coder = new CoderwallClient("username").get();
+Coder coder = new CoderwallClient("alessandroleite").get();
+
+for(Badge badge: code.getBadges())
+{
+	System.out.printf("Name:%s Description:%s Created in: %s Badge icon: %s", 
+					   badge.getName(), badge.getDescription(), badge.getCreated(), badge.getBadge());	
+}
 ```
 
 ## Contributing
