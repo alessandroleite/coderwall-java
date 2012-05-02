@@ -2,16 +2,29 @@
 
 Coderwall Java Client API
 
+## Build
+
+```
+mvn package jar:jar
+ 
+```
+
+## Running
+```
+java -jar target/coderwall-j.jar <username>
+
+```
+
 ## Usage
 
 ```
 Coder coder = new CoderwallClient("alessandroleite").get();
 
-for(Badge badge: code.getBadges())
+for (Badge badge : coder.getBadges()) 
 {
-	System.out.printf("Name:%s Description:%s Created in: %s Badge icon: %s", 
-					   badge.getName(), badge.getDescription(), badge.getCreated(), badge.getBadge());	
+	System.out.printf("- %s: %s\n", badge.getName(), badge.getDescription());
 }
+
 ```
 
 ## Contributing

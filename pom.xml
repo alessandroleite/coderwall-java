@@ -147,7 +147,7 @@
 	</dependencies>
 
 	<build>
-		<finalName>${project.artifactId}-${project.version}</finalName>
+		<finalName>coderwall-j</finalName>
 		<defaultGoal>package</defaultGoal>
 		<resources>
 			<resource>
@@ -188,14 +188,24 @@
 					<archive>
 						<manifest>
 							<addClasspath>true</addClasspath>
-							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
-							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+							<addDefaultSpecificationEntries>
+								true
+							</addDefaultSpecificationEntries>
+							<addDefaultImplementationEntries>
+								true
+							</addDefaultImplementationEntries>
+							<mainClass>alessandro.cc.jcoderwall.Main</mainClass>
 						</manifest>
-						<manifestEntries>
-							<Implementation-Build>${buildNumber}</Implementation-Build>
-						</manifestEntries>
 					</archive>
 				</configuration>
+				<executions>
+					<execution>
+						<id>jar</id>
+						<goals>
+							<goal>jar</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
@@ -226,6 +236,20 @@
 					<encoding>${project.build.sourceEncoding}</encoding>
 					<projectNameTemplate>[artifactId]-[version]</projectNameTemplate>
 				</configuration>
+			</plugin>
+			<plugin>
+				<groupId>com.anydoby</groupId>
+				<artifactId>fatjar-maven-plugin</artifactId>
+				<version>0.0.2</version>
+				<executions>
+					<execution>
+						<id>pre-jar</id>
+						<phase>package</phase>
+						<goals>
+							<goal>prepare-jars</goal>
+						</goals>
+					</execution>
+				</executions>
 			</plugin>
 			<plugin>
 				<artifactId>maven-source-plugin</artifactId>
