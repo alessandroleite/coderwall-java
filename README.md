@@ -6,12 +6,20 @@ Coderwall Java Client API
 
 ```
 mvn package jar:jar
- 
 ```
 
 ## Running
 ```
 java -jar target/coderwall-j.jar <username>
+
+##	Output
+User: alessandroleite Location: Brazil 
+Achievements:
+- Charity: Fork and commit to someone's open source project in need
+- T-Rex: Have at least one original repo where C is the dominant language
+- Komodo Dragon 3: Have at least three original repos where Java is the dominant language
+- Komodo Dragon: Have at least one original repo where Java is the dominant language
+- Forked: Have a project valued enough to be forked by someone else
 
 ```
 
