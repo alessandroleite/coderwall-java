@@ -1,6 +1,6 @@
 # Coderwall-java
 
-Coderwall Java Client API
+Coderwall Java Client API [![endorse](http://api.coderwall.com/alessandroleite/endorsecount.png)](http://coderwall.com/alessandroleite)
 
 ## Usage
 
