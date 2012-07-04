@@ -1,4 +1,4 @@
-# Coderwall-java [![endorse](http://api.coderwall.com/alessandroleite/endorsecount.png)](http://coderwall.com/alessandroleite) [![Build Status](https://secure.travis-ci.org/[alessandroleite]/[coderwall-java].png)](http://travis-ci.org/[alessandroleite]/[coderwall-java])
+# Coderwall-java [![endorse](http://api.coderwall.com/alessandroleite/endorsecount.png)](http://coderwall.com/alessandroleite) [![Build Status](https://secure.travis-ci.org/alessandroleite/coderwall-java.png)](http://travis-ci.org/alessandroleite/coderwall-java)
 
 Coderwall Java Client API
 
