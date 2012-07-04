@@ -116,6 +116,17 @@
 			<url>http://anydoby.com/maven</url>
 		</pluginRepository>
 	</pluginRepositories>
+	
+	<distributionManagement>
+		<repository>
+			<id>release-repo</id>
+			<url>https://github.com/alessandroleite/maven-repository/raw/master/releases</url>
+		</repository>
+		<snapshotRepository>
+			<id>snapshot-repo</id>
+			<url>http://github.com/alessandroleite/maven-repository/raw/master/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
 
 	<dependencies>
 		<!-- Test Scope -->
