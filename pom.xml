@@ -51,7 +51,7 @@
 	<scm>
 		<connection>scm:git:ssh://github.com/alessandroleite/coderwall-java.git</connection>
 		<developerConnection>scm:git:git://github.com/alessandroleite/coderwall-java.git</developerConnection>
-		<url>http://github.com/alessandroleite/coderwall-java</url>
+		<url>https://github.com/alessandroleite/coderwall-java</url>
 	</scm>
 
 	<licenses>
