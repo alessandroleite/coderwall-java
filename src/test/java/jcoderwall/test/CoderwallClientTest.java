@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2012 Alessandro Leite, http://alessandro.cc <alessandro.leite@alessandro.cc>
+ * Copyright (c) 2012 Contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -20,35 +20,48 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package alessandro.cc.jcoderwall.client.test;
-
-import static junit.framework.Assert.assertNotNull;
-import static junit.framework.Assert.assertTrue;
+package jcoderwall.test;
 
 import java.io.IOException;
 
+import jcoderwall.Coder;
+import jcoderwall.CoderwallClient;
+import jcoderwall.UserNotFoundException;
 import junit.framework.Assert;
 
 import org.junit.Test;
 
-import alessandro.cc.jcoderwall.Coder;
-import alessandro.cc.jcoderwall.CoderwallClient;
+import static junit.framework.Assert.assertNotNull;
+import static junit.framework.Assert.assertTrue;
 
-public class CoderwallClientTest {
+public class CoderwallClientTest
+{
 
-	@Test
-	public void must_have_one_badge() {
-		try {
-			Coder coder = new CoderwallClient("alessandroleite").get();
-			assertNotNull(coder);
-			assertTrue(coder.getBadges().size() >= 1);
-		} catch (IOException exception) {
-			Assert.fail(exception.getMessage());
-		}
-	}
+    /**
+     * Tests with the user: alessandroleite has at least one badge.
+     */
+    @Test
+    public void must_have_one_badge()
+    {
+        try
+        {
+            Coder coder = new CoderwallClient("alessandroleite").get();
+            assertNotNull(coder);
+            assertTrue(coder.getBadges().size() >= 1);
+        }
+        catch (IOException exception)
+        {
+            Assert.fail(exception.getMessage());
+        }
+    }
 
-	@Test(expected = IOException.class)
-	public void must_throws_io_exception() throws IOException {
-		new CoderwallClient("alessandrodotleite").get();
-	}
+    /**
+     * Tests if an {@link UserNotFoundException} is thrown if the user does not exists.
+     * @throws IOException If an I/O error occurs.
+     */
+    @Test(expected = UserNotFoundException.class)
+    public void must_throws_user_exception() throws IOException
+    {
+        new CoderwallClient("alessandrodotleite").get();
+    }
 }

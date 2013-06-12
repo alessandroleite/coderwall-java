@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2012 Alessandro Leite, http://alessandro.cc <alessandro.leite@alessandro.cc>
+ * Copyright (c) 2012 Contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -20,36 +20,20 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package alessandro.cc.jcoderwall;
+package jcoderwall;
 
-import java.io.IOException;
-
-public class Main {
-
-	public static void main(String[] args) {
-		if (args.length == 0) {
-			help();
-		} else {
-			try {
-				show(new CoderwallClient(args[0]).get());
-			} catch (IOException e) {
-				System.err.printf("User: %s not found!\n", args[0]);
-			}
-		}
-	}
-
-	private static void show(Coder coder) {
-		System.out.printf("User: %s Location: %s \n", coder.getUsername(),
-				coder.getLocation());
-		System.out.println("Achievements:");
-		for (Badge badge : coder.getBadges()) {
-			System.out.printf("- %s: %s\n", badge.getName(),
-					badge.getDescription());
-		}
-	}
-
-	private static void help() {
-		System.out
-				.println("alessandro.cc.jcoderwall.Main <username> \n or java -jar coderwall-j <username>");
-	}
+public class UserNotFoundException extends RuntimeException
+{
+    /**
+     * Serial code version <code>serialVersionUID</code> for serialization.
+     */
+    private static final long serialVersionUID = -4536579557957439442L;
+    
+    /**
+     * @param username The username that was not found.
+     */
+    public UserNotFoundException(String username)
+    {
+        super(String.format("User %s not found!", username));
+    }
 }

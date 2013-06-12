@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2012 Alessandro Leite, http://alessandro.cc <alessandro.leite@alessandro.cc>
+ * Copyright (c) 2012 Contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -20,39 +20,29 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package alessandro.cc.jcoderwall.gson;
+package jcoderwall.gson;
 
 import java.lang.reflect.Type;
 
-import alessandro.cc.jcoderwall.Badge;
-import alessandro.cc.jcoderwall.Badges;
-
-import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonParseException;
 
+import org.joda.time.DateTime;
+
 /**
- * {@link JsonDeserializer} for {@link Badges} type.
- * 
- * @author alessandro.leite
+ * {@link JsonDeserializer} for Joda {@link DateTime}.
  */
-public class BadgesDeserializer implements JsonDeserializer<Badges> {
+public class DateTimeDeserializer implements JsonDeserializer<DateTime>
+{
 
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public Badges deserialize(JsonElement json, Type typeOfT,
-			JsonDeserializationContext context) throws JsonParseException {
-
-		Badges badges = new Badges();
-		if (json instanceof JsonArray) {
-			for (JsonElement element : (JsonArray) json) {
-				badges.add((Badge) context.deserialize(element, Badge.class));
-			}
-		}
-		return badges;
-	}
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public DateTime deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
+    {
+        return new DateTime(json.getAsJsonPrimitive().getAsString());
+    }
 }

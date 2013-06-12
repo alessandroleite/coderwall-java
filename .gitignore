@@ -11,5 +11,6 @@ target
 #Eclipse files
 .classpath
 .project
+.checkstyle
 .settings/
 

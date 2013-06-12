@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2012 Alessandro Leite, http://alessandro.cc <alessandro.leite@alessandro.cc>
+ * Copyright (c) 2012 Contributors
  *
  * Permission is hereby granted, free of charge, to any person obtaining
  * a copy of this software and associated documentation files (the
@@ -20,30 +20,38 @@
  * OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION
  * WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  */
-package alessandro.cc.jcoderwall.gson;
+package jcoderwall.gson;
 
 import java.lang.reflect.Type;
 
-import org.joda.time.DateTime;
-
-import alessandro.cc.jcoderwall.Badge;
-
+import com.google.gson.JsonArray;
 import com.google.gson.JsonDeserializationContext;
 import com.google.gson.JsonDeserializer;
 import com.google.gson.JsonElement;
-import com.google.gson.JsonObject;
 import com.google.gson.JsonParseException;
 
-public class BadgeDeserializer implements JsonDeserializer<Badge> {
+import jcoderwall.Badge;
+import jcoderwall.Badges;
 
-	@Override
-	public Badge deserialize(JsonElement json, Type typeOfT,
-			JsonDeserializationContext context) throws JsonParseException {
-		JsonObject jsonObject = (JsonObject) json;
-
-		return new Badge(jsonObject.get("name").getAsString(), jsonObject.get(
-				"description").getAsString(), (DateTime) context.deserialize(
-				jsonObject.get("created"), DateTime.class), jsonObject.get(
-				"badge").getAsString());
-	}
+/**
+ * {@link JsonDeserializer} for {@link Badges} type.
+ */
+public class BadgesDeserializer implements JsonDeserializer<Badges>
+{
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public Badges deserialize(JsonElement json, Type typeOfT, JsonDeserializationContext context) throws JsonParseException
+    {
+        Badges badges = new Badges();
+        if (json instanceof JsonArray)
+        {
+            for (JsonElement element : (JsonArray) json)
+            {
+                badges.add((Badge) context.deserialize(element, Badge.class));
+            }
+        }
+        return badges;
+    }
 }

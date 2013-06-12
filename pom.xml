@@ -2,13 +2,39 @@
 	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
 
 	<modelVersion>4.0.0</modelVersion>
-	<groupId>cc.alessandro</groupId>
-	<artifactId>coderwall-java</artifactId>
+
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+
+	<groupId>coderwall-j</groupId>
+	<artifactId>coderwall-j</artifactId>
 	<packaging>jar</packaging>
 	<name>Coderwall Java Client</name>
 	<version>1.0-SNAPSHOT</version>
 	<url>https://github.com/alessandroleite/coderwall-java</url>
 	<inceptionYear>2012</inceptionYear>
+
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+		<java.source.version>1.6</java.source.version>
+
+		<internal.snapshots.repo.path>file://${project.basedir}/../maven-repo/snapshots</internal.snapshots.repo.path>
+		<internal.release.repo.path>file://${project.basedir}/../maven-repo/releases</internal.release.repo.path>
+		<clamshellcli.repo>http://s3.amazonaws.com/repo.clamshellcli.org/release/</clamshellcli.repo>
+
+		<license-header-file>${basedir}/src/etc/license-header.txt</license-header-file>
+		<checkstyle.file>${project.basedir}/checkstyle.xml</checkstyle.file>
+
+		<guava.version>12.0</guava.version>
+		<joda-time.version>1.6.2</joda-time.version>
+		<gson.version>1.7.1</gson.version>
+		<commons-lang.version>2.6</commons-lang.version>
+	</properties>
 
 	<description>
 		Coderwall Java Client. See http://coderwall.com/api for details about the API.
@@ -16,13 +42,8 @@
 
 	<developers>
 		<developer>
-			<id>alessandro.leite</id>
-			<name>Alessandro Leite</name>
-			<email>alessandro.leite@alessandro.cc</email>
-			<timezone>-3</timezone>
-			<roles>
-				<role>Software Developer</role>
-			</roles>
+			<name>Alessandro Ferreira Leite</name>
+			<email>first-name[dot]last-name[dot]first-name[dot]cc</email>
 		</developer>
 	</developers>
 
@@ -32,101 +53,27 @@
 		<url>http://github.com/alessandroleite/coderwall-java.git</url>
 	</scm>
 
-	<repositories>
-		<repository>
-			<id>jboss</id>
-			<url>https://repository.jboss.org/nexus/content/groups/public/</url>
-		</repository>
-		<repository>
-			<id>maven-repository.dev.java.net</id>
-			<url>http://download.java.net/maven/1</url>
-		</repository>
-		<repository>
-			<id>java.net</id>
-			<url>http://download.java.net/maven/2</url>
-		</repository>
-		<repository>
-			<id>mc-release</id>
-			<name>Local Maven repository of releases</name>
-			<url>http://mc-repo.googlecode.com/svn/maven2/releases</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</repository>
-		<repository>
-			<id>mc-snapshot</id>
-			<name>Local Maven repository of snapshots</name>
-			<url>http://mc-repo.googlecode.com/svn/maven2/snapshots</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</repository>
-		<repository>
-			<id>anydoby.com</id>
-			<url>http://anydoby.com/maven</url>
-		</repository>
-	</repositories>
-	<pluginRepositories>
-		<pluginRepository>
-			<id>mc-release</id>
-			<name>Local Maven repository of releases</name>
-			<url>http://mc-repo.googlecode.com/svn/maven2/releases</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</pluginRepository>
-		<pluginRepository>
-			<id>mc-snapshot</id>
-			<name>Local Maven repository of snapshots</name>
-			<url>http://mc-repo.googlecode.com/svn/maven2/snapshots</url>
-			<snapshots>
-				<enabled>true</enabled>
-			</snapshots>
-			<releases>
-				<enabled>false</enabled>
-			</releases>
-		</pluginRepository>
-		<pluginRepository>
-			<id>mc-thirdparty</id>
-			<name>Local Maven repository of third party libraries not in mavenrepo</name>
-			<url>http://mc-repo.googlecode.com/svn/maven2/thirdparty</url>
-			<snapshots>
-				<enabled>false</enabled>
-			</snapshots>
-			<releases>
-				<enabled>true</enabled>
-			</releases>
-		</pluginRepository>
-		<pluginRepository>
-			<id>sonatype-plugin-repo</id>
-			<name>sonatype plugin repository</name>
-			<url>http://oss.sonatype.org/content/repositories/github-releases</url>
-		</pluginRepository>
-		<pluginRepository>
-			<id>anydoby.com</id>
-			<url>http://anydoby.com/maven</url>
-		</pluginRepository>
-	</pluginRepositories>
-	
 	<distributionManagement>
 		<repository>
-			<id>release-repo</id>
-			<url>https://github.com/alessandroleite/maven-repository/raw/master/releases</url>
+			<id>deploy-release-repo</id>
+			<name>deploy-release-repo</name>
+			<url>${deploy-repo.url}/releases</url>
 		</repository>
+
 		<snapshotRepository>
-			<id>snapshot-repo</id>
-			<url>http://github.com/alessandroleite/maven-repository/raw/master/snapshots</url>
+			<id>deploy-snapshot-repo</id>
+			<name>deploy-snapshot-repo</name>
+			<url>${deploy-repo.url}/snapshots</url>
 		</snapshotRepository>
 	</distributionManagement>
+
+	<repositories>
+		<repository>
+			<id>clamshellcli.repo</id>
+			<name>Clamshell-Cli Repository</name>
+			<url>${clamshellcli.repo}</url>
+		</repository>
+	</repositories>
 
 	<dependencies>
 		<!-- Test Scope -->
@@ -141,27 +88,25 @@
 		<dependency>
 			<groupId>com.google.guava</groupId>
 			<artifactId>guava</artifactId>
-			<version>12.0</version>
+			<version>${guava.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>joda-time</groupId>
 			<artifactId>joda-time</artifactId>
-			<version>1.6.2</version>
+			<version>${joda-time.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>com.google.code.gson</groupId>
 			<artifactId>gson</artifactId>
-			<version>1.7.1</version>
-			<scope>compile</scope>
+			<version>${gson.version}</version>
 		</dependency>
 
 		<dependency>
 			<groupId>commons-lang</groupId>
 			<artifactId>commons-lang</artifactId>
-			<version>2.6</version>
-			<scope>compile</scope>
+			<version>${commons-lang.version}</version>
 		</dependency>
 	</dependencies>
 
@@ -177,18 +122,73 @@
 		<plugins>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-resources-plugin</artifactId>
-				<version>2.5</version>
+				<artifactId>maven-checkstyle-plugin</artifactId>
+				<version>2.10</version>
 				<configuration>
-					<encoding>${project.build.sourceEncoding}</encoding>
+					<configLocation>${checkstyle.file}</configLocation>
+					<headerLocation>${license-header-file}</headerLocation>
 				</configuration>
 			</plugin>
-			<!--<plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-compiler-plugin</artifactId>
+				<version>3.1</version>
+				<configuration>
+					<encoding>${project.build.sourceEncoding}</encoding>
+					<source>${java.source.version}</source>
+					<target>${java.source.version}</target>
+					<showDeprecation>true</showDeprecation>
+					<XaddSerialVersionUID>true</XaddSerialVersionUID>
+					<compilerArgument>-Xlint:all</compilerArgument>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-source-plugin</artifactId>
+				<version>2.2.1</version>
+				<inherited>true</inherited>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-javadoc-plugin</artifactId>
+				<version>2.9</version>
+				<executions>
+					<execution>
+						<id>attach-sources</id>
+						<phase>verify</phase>
+						<goals>
+							<goal>jar-no-fork</goal>
+						</goals>
+					</execution>
+				</executions>
+			</plugin>
+
+			<plugin>
 				<groupId>com.mycila.maven-license-plugin</groupId>
 				<artifactId>maven-license-plugin</artifactId>
 				<version>1.9.0</version>
 				<configuration>
-					<header>license.txt</header>
+					<header>${license-header-file}</header>
+					<excludes>
+						<exclude>License.txt</exclude>
+						<exclude>**/README.md</exclude>
+						<exclude>**/travis.yml</exclude>
+						<exclude>**/checkstyle.xml</exclude>
+						<exclude>**/.checkstyle</exclude>
+					</excludes>
+					<strictCheck>true</strictCheck>
 				</configuration>
 				<executions>
 					<execution>
@@ -198,57 +198,40 @@
 						</goals>
 					</execution>
 				</executions>
-			</plugin>-->
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-jar-plugin</artifactId>
-				<version>2.3.1</version>
-				<configuration>
-					<archive>
-						<manifest>
-							<addClasspath>true</addClasspath>
-							<addDefaultSpecificationEntries>
-								true
-							</addDefaultSpecificationEntries>
-							<addDefaultImplementationEntries>
-								true
-							</addDefaultImplementationEntries>
-							<mainClass>alessandro.cc.jcoderwall.Main</mainClass>
-						</manifest>
-					</archive>
-				</configuration>
-				<executions>
-					<execution>
-						<id>jar</id>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
 			</plugin>
 			<plugin>
 				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-compiler-plugin</artifactId>
-				<version>2.0</version>
-				<configuration>
-					<encoding>${project.build.sourceEncoding}</encoding>
-					<source>${source.version}</source>
-					<target>${source.version}</target>
-				</configuration>
-			</plugin>
-			<plugin>
 				<artifactId>maven-eclipse-plugin</artifactId>
-				<version>2.8</version>
+				<version>2.9</version>
 				<configuration>
 					<additionalProjectnatures>
-						<projectnature> org.maven.ide.eclipse.maven2Nature</projectnature>
-						<projectnature> org.eclipse.jem.workbench.JavaEMFNature</projectnature>
-						<projectnature> org.eclipse.wst.jsdt.core.jsNature </projectnature>
+						<projectnature>org.maven.ide.eclipse.maven2Nature</projectnature>
+						<projectnature>org.eclipse.jem.workbench.JavaEMFNature</projectnature>
+						<projectnature>org.eclipse.wst.jsdt.core.jsNature </projectnature>
+						<projectnature>com.atlassw.tools.eclipse.checkstyle.CheckstyleNature</projectnature>
 					</additionalProjectnatures>
 					<additionalBuildcommands>
-						<buildcommand> org.maven.ide.eclipse.maven2Builder </buildcommand>
+						<buildcommand>org.maven.ide.eclipse.maven2Builder</buildcommand>
+						<buildcommand>com.atlassw.tools.eclipse.checkstyle.CheckstyleBuilder</buildcommand>
 						<forceRecheck>true</forceRecheck>
 					</additionalBuildcommands>
+					<additionalConfig>
+						<file>
+							<name>.checkstyle</name>
+							<content>
+							  <![CDATA[<?xml version="1.0" encoding="UTF-8"?>
+							<fileset-config file-format-version="1.2.0" simple-config="true" sync-formatter="true">
+							  <local-check-config name="${project.groupId}-checkstyle" location="${checkstyle.file}" type="external" description="">
+							    <additional-data name="protect-config-file" value="false"/>
+							  </local-check-config>
+							  <fileset name="all" enabled="true" check-config-name="${project.groupId}-checkstyle" local="true">
+							    <file-match-pattern match-pattern="." include-pattern="true"/>
+							  </fileset>
+							</fileset-config>
+					]]>
+							</content>
+						</file>
+					</additionalConfig>
 					<useProjectReferences>true</useProjectReferences>
 					<downloadSources>true</downloadSources>
 					<downloadJavadocs>true</downloadJavadocs>
@@ -257,81 +240,51 @@
 				</configuration>
 			</plugin>
 			<plugin>
-				<groupId>com.anydoby</groupId>
-				<artifactId>fatjar-maven-plugin</artifactId>
-				<version>0.0.2</version>
+				<artifactId>maven-assembly-plugin</artifactId>
+				<version>2.4</version>
+				<configuration>
+					<archive>
+						<manifest>
+							<addClasspath>true</addClasspath>
+							<addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
+							<addDefaultImplementationEntries>true</addDefaultImplementationEntries>
+						</manifest>
+						<manifestEntries>
+							<Implementation-Build>${buildNumber}</Implementation-Build>
+							<mode>development</mode>
+						</manifestEntries>
+					</archive>
+				</configuration>
 				<executions>
 					<execution>
-						<id>pre-jar</id>
+						<id>make-assembly</id>
 						<phase>package</phase>
 						<goals>
-							<goal>prepare-jars</goal>
+							<goal>single</goal>
 						</goals>
+						<configuration>
+							<appendAssemblyId>false</appendAssemblyId>
+							<finalName>${project.finalName}</finalName>
+							<descriptorRefs>
+								<descriptorRef>jar-with-dependencies</descriptorRef>
+							</descriptorRefs>
+							<attach>true</attach>
+							<archive>
+								<manifest>
+									<addClasspath>true</addClasspath>
+									<addDefaultSpecificationEntries>
+										true
+									</addDefaultSpecificationEntries>
+									<addDefaultImplementationEntries>
+										true
+									</addDefaultImplementationEntries>
+									<mainClass>jcoderwall.Main</mainClass>
+								</manifest>
+							</archive>
+						</configuration>
 					</execution>
 				</executions>
-			</plugin>
-			<plugin>
-				<artifactId>maven-source-plugin</artifactId>
-				<version>2.1.2</version>
-				<executions>
-					<execution>
-						<phase>package</phase>
-						<goals>
-							<goal>jar</goal>
-						</goals>
-					</execution>
-				</executions>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-javadoc-plugin</artifactId>
-				<version>2.7</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-deploy-plugin</artifactId>
-				<version>2.5</version>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-release-plugin</artifactId>
-				<version>2.0</version>
 			</plugin>
 		</plugins>
 	</build>
-	<reporting>
-		<plugins>
-			<plugin>
-				<artifactId>maven-pmd-plugin</artifactId>
-				<version>2.4</version>
-				<configuration>
-					<targetJdk>${source.version}</targetJdk>
-				</configuration>
-			</plugin>
-			<plugin>
-				<groupId>org.apache.maven.plugins</groupId>
-				<artifactId>maven-checkstyle-plugin</artifactId>
-				<version>2.6</version>
-			</plugin>
-			<plugin>
-				<groupId>org.codehaus.mojo</groupId>
-				<artifactId>taglist-maven-plugin</artifactId>
-				<version>2.3</version>
-				<configuration>
-					<encoding>${project.build.sourceEncoding}</encoding>
-					<tags>
-						<tag>TODO</tag>
-						<tag>FIXME</tag>
-						<tag>@deprecated</tag>
-					</tags>
-				</configuration>
-			</plugin>
-		</plugins>
-	</reporting>
-	<properties>
-		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
-		<project.reporting.outputEncoding>UTF-8
-		</project.reporting.outputEncoding>
-		<source.version>1.6</source.version>
-	</properties>
 </project>
